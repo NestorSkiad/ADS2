@@ -7,19 +7,21 @@ public class Main {
 	public static void main(String args[])
 	{
 		
-		String function = "subsets";
-		args[1] = 3;
+		String function = "permutations";
+		
+		int datum = 3;
+		int target = 3;
 
-		int datum;
+		
 		switch(function) {
 		case "subsets":
-			datum = Integer.parseInt(args[1]);
+			
 			Subsets s = new Subsets(datum);
 			s.startBacktrack();
 			s.printSolution();
 			break;
 		case "permutations":
-			datum = Integer.parseInt(args[1]);
+			
 			Permutations p = new Permutations(datum);
 			p.startBacktrack();
 			p.printSolution();
@@ -43,7 +45,6 @@ public class Main {
 			graph.put(6, new ArrayList<Integer>());
 			graph.get(6).add(1); graph.get(6).add(5); 
 			
-			int target = Integer.parseInt(args[1]);
 			
 			Paths pt = new Paths(6,target,graph);
 			pt.startBacktrack();

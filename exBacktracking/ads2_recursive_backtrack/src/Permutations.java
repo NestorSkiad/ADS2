@@ -22,27 +22,34 @@ public class Permutations extends AbstractBacktrack {
 	@Override
 	protected boolean isValidSolution(ArrayList<Integer> partialSolution, int cursor, int data) {
 		//TODO
-		return false;
+		return cursor == capacity-1;
 	}
 
 	@Override
 	protected void handleSolution(ArrayList<Integer> partialSolution) {
-		//TODO
+		solutions.add(new ArrayList<>(partialSolution));
 	}
 
 	//Hint: Which objects have not yet been assigned?
 	@Override
 	protected ArrayList<Integer> generateCandidates(ArrayList<Integer> partialSolution, int cursor, int data) {
-
-		//TODO
-		return null;
+		ArrayList<Integer> candidates = new ArrayList<Integer>();
+		for (int i = 0; i< capacity; i++) {
+			candidates.add(i);
+		}
+		for (Integer k : partialSolution) {
+			candidates.remove(k);
+		}
+		return candidates;
 
 	}
 	
 	
 	@Override
 	public void printSolution() {
-		//TODO
+		for (ArrayList<Integer> x: solutions) {
+			System.out.println(x);
+		}
 	}
 
 	
