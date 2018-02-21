@@ -1,0 +1,23 @@
+Cache Design
+To make accessing the cache faster, we use a prefix system to look up DRAM addresses that are 
+stored in the cache. In such a system, we consider the first few digits of a DRAM memory location’s 
+address and match it against prefixes. When there’s a match against a prefix, we check the rest of 
+the address against the subset of the addresses with the same prefix. If there is no match in either 
+lookup, we have a cache miss, which we deal with by 
+Keeping track of the free locations:
+Ordered linked list using prefixes. Inside each item should be another linked list or an array that has 
+all the empty locations.
+Last in:
+Last accessed cache location should be considered and saved from every single function that 
+accesses cache.
+Eviction:
+Last accessed cache location should be considered and saved from every single function that 
+accesses cache.
+Use DRAM address in cache to write back to DRAM. Remove data from cache and address from 
+lookup table (also prefix if the subset is just that address).
+Repopulation:
+Use the first available cache address from the free locations list. Put that in the DRAM address table. 
+Add the data and DRAM address to the cache. Delete cache address from free addresses table. 
+Record cache address as last in.
+Associativity:
+Just store the DRAM addresses with the data in the cache.
