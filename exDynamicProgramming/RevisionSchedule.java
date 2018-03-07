@@ -24,13 +24,68 @@ public class RevisionSchedule {
 
     public static long countSchedulesNaive(int k) {
         // Please provide a naive, (mutually) recursive solution to the problem.
-        return 0L;
+    	return R(k) + M(k) + C(k);
     }
+    
+    public static long R(int k) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		return R(k-1) + M(k-1) + C(k-1);
+    	} 
+    }
+    
+    public static long M(int k) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		return R(k-1) + M(k-1);
+    	} 
+    }
+    
+    public static long C(int k) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		return R(k-1) + C(k-1);
+    	} 
+    }
+   
 
     public static long countSchedulesEfficient(int k, HashMap<Long, Long> lookup) {
         // Please provide an efficient solution to the problem using either dynamic programming (you can just ignore `lookup`), or recursive call caching (memoisation) using `lookup`.
         
-        return 0L;
+        return R(k, lookup) + M(k, lookup) + C(k, lookup);
+    }
+    
+    public static long R(int k, HashMap<Long, Long> lookup) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		long m = lookup.containsKey((long) k) ? lookup.get((long) k) : R(k-1, lookup) + M(k-1, lookup) + C(k-1, lookup);
+    		lookup.put((long)k, m);
+    		return m;
+    	} 
+    }
+    
+    public static long M(int k, HashMap<Long, Long> lookup) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		long m = lookup.containsKey((long) k) ? lookup.get((long) k) : R(k-1, lookup) + M(k-1, lookup);
+    		lookup.put((long)k, m);
+    		return m;
+    	} 
+    }
+    
+    public static long C(int k, HashMap<Long, Long> lookup) {
+    	if(k==1) {
+    		return 1L;
+    	}else {
+    		long m = lookup.containsKey((long) k) ? lookup.get((long) k) : R(k-1, lookup) + C(k-1, lookup);
+    		lookup.put((long)k, m);
+    		return m;
+    	} 
     }
 
     public static void test(boolean beQuiet) {
@@ -42,7 +97,7 @@ public class RevisionSchedule {
     public static void main(String[] args) {
         System.out.println(
                 "You're testing ChangeMaking.java. If a bug is detected you'll be notified. If test cases fail to terminate you should use more efficient programming techniques.");
-
+        
         test(countSchedulesNaive(2) == 7);
         test(countSchedulesNaive(1) == 3);
         test(countSchedulesNaive(20) == 54608393);
