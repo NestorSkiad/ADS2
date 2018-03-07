@@ -16,18 +16,36 @@ public class Fibonacci {
 
     public static long fibonacciNaive(long k) {
         // Please implement a naive, recursive version of the program.
-        return 0L;
+    	if(k==0L || k==1L) {
+    		return k; 
+    	} else {
+    		return fibonacciNaive(k - 1) + fibonacciNaive(k - 2);
+    	}
     }
 
     public static long fibonacciCached(long k, Map<Long, Long> lookup) {
         // Please implement an optimsed version of the program using a hash map to cache the results of previously evaluated calls to `fibonacci_cached`.
-        return 0L;
+    	if(lookup.containsKey(k)) {
+    		return lookup.get(k);
+    	} else if (k==0 || k==1) {
+    		return k;
+    	} else {
+    		long fib = fibonacciCached(k-1, lookup) + fibonacciCached(k-2, lookup);
+    		lookup.put(k, fib);
+    		return fib;
+    	}
     }
 
     
     public static long fibonacciDynamicProgramming(int k) {
         // Please implement a dynamic programming version of the program using a one-dimensional array to store the results of the computation up to the k-th element of the sequence. Return the kth element.
-        return 0L;
+        long [] fib = new long[k+1];
+        fib[0] = 0;
+        fib[1] = 1;
+        for(int i = 2; i <=k; i++) {
+        	fib[i] = fib[i-1] + fib[i-2];
+        }
+    	return fib[k];
     }
 
     public static void test(boolean beQuiet) {
@@ -58,6 +76,8 @@ public class Fibonacci {
         test(fibonacciNaive(1) == fibonacciDynamicProgramming(1));
         test(fibonacciNaive(13) == fibonacciDynamicProgramming(13));
         test(fibonacciDynamicProgramming(50) == 12586269025L);
+        
+        System.out.println("DONE");
     }
 }
 
